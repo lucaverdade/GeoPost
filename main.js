@@ -1,17 +1,31 @@
+const url = "https://estagio.geopostenergy.com/WorldCup/GetAllTeams";
 
-fetch('https://estagio.geopostenergy.com/WorldCup/GetAllTeams',{
-    method: 'GET' ,
-    headers: {'WWW-Authenticate':'git-user:lucaverdade' ,
-        'content-type' : 'aplication/json: charset=utf-8',
-        
+async function getAllPosts() {
+  const response = await fetch(url, {
+    method: "GET",
+    headers: { "git-user": "lucaverdade" },
+  });
 
+
+  return response.json()
+  //const selecoes = await response.json();
+  //console.log(selecoes);
+}
+
+getAllPosts().then(selecoes => {
+    const selecao = selecoes.results
+    const grupos = []
+
+    for (let p of selecao){
+        grupos.push({
+            "Nome" : p.Name ,
+            "Token" : p.Token
+        })
     }
-})
-    
-.then( resposta => {
 
-   return(resposta.json())
+
+
+    console.log(selecoes)
 })
-.then(body => {
-    console.log(body)
-})
+
+
